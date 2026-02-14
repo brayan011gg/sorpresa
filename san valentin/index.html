@@ -1,0 +1,276 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>¿Quieres ser mi San Valentín? 💘</title>
+  <link rel="stylesheet" href="styles.css" />
+  <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap" rel="stylesheet">
+</head>
+
+<body>
+  <!-- PANTALLA DE CARGA MINECRAFT -->
+  <div id="loadingScreen" class="loading-screen">
+    <div class="loading-content">
+      <div class="minecraft-logo">💕 Mi Mundo Contigo 💕</div>
+      <div class="loading-bar-container">
+        <div class="loading-bar" id="loadingBar"></div>
+      </div>
+      <div class="loading-text" id="loadingText">Cargando mi mundo contigo...</div>
+      <div class="loading-percentage" id="loadingPercentage">0%</div>
+    </div>
+  </div>
+
+  <!-- VIDEO DE FONDO -->
+  <div class="video-background">
+    <video autoplay muted loop playsinline id="bgVideo">
+      <source src="video-nosotros.mp4" type="video/mp4">
+      <!-- Si no tienes el video aún, puedes usar una imagen de fondo temporalmente -->
+    </video>
+    <div class="video-overlay"></div>
+  </div>
+
+  <!-- Corazones animados de fondo -->
+  <div class="bg-hearts" aria-hidden="true"></div>
+
+  <!-- AUDIO DE FONDO - Se reproducirá al hacer clic en SÍ -->
+  <audio id="loveMusic" preload="auto">
+    <source src="musica-amor.mp3" type="audio/mpeg">
+    <source src="musica-amor.ogg" type="audio/ogg">
+    <!-- Tu música aquí -->
+  </audio>
+
+  <main class="container">
+    <!-- HERO -->
+    <header class="hero">
+      <p class="badge">San Valentín 2026 💞</p>
+      <h1 class="minecraft-title">Hola, mi amor</h1>
+      <p class="subtitle">
+        Hice esta página especial solo para ti. Antes de que termine el día…
+      </p>
+    </header>
+
+    <!-- SECCIÓN 1: GALERÍA DE RECUERDOS CON DESAFÍOS -->
+    <section class="card memory-card">
+      <div class="card-header">
+        <h2 class="minecraft-subtitle">Desbloquea Nuestros Recuerdos 🎮</h2>
+        <p class="card-desc">Completa cada desafío para revelar nuestras fotos especiales</p>
+        <div class="progress-tracker">
+          <span class="progress-text">Fotos desbloqueadas: <span id="photosUnlocked">0</span>/6 🔓</span>
+          <button class="reset-progress-btn" id="resetProgressBtn" title="Reiniciar progreso">🔄</button>
+        </div>
+      </div>
+      <div class="gallery-game">
+        <!-- Foto 1 - Pregunta -->
+        <div class="photo-challenge" data-photo="1">
+          <div class="locked-overlay">
+            <div class="lock-icon">🔒</div>
+            <div class="challenge-text">Nivel 1</div>
+            <button class="unlock-btn">Desbloquear</button>
+          </div>
+          <img src="img/foto1.jpg" alt="Nosotros 1" class="hidden-photo" />
+        </div>
+
+        <!-- Foto 2 - Código -->
+        <div class="photo-challenge" data-photo="2">
+          <div class="locked-overlay">
+            <div class="lock-icon">🔒</div>
+            <div class="challenge-text">Nivel 2</div>
+            <button class="unlock-btn">Desbloquear</button>
+          </div>
+          <img src="img/foto2.jpg" alt="Nosotros 2" class="hidden-photo" />
+        </div>
+
+        <!-- Foto 3 - Puzzle -->
+        <div class="photo-challenge" data-photo="3">
+          <div class="locked-overlay">
+            <div class="lock-icon">🔒</div>
+            <div class="challenge-text">Nivel 3</div>
+            <button class="unlock-btn">Desbloquear</button>
+          </div>
+          <img src="img/foto3.jpg" alt="Nosotros 3" class="hidden-photo" />
+        </div>
+
+        <!-- Foto 4 - Adivinanza -->
+        <div class="photo-challenge" data-photo="4">
+          <div class="locked-overlay">
+            <div class="lock-icon">🔒</div>
+            <div class="challenge-text">Nivel 4</div>
+            <button class="unlock-btn">Desbloquear</button>
+          </div>
+          <img src="img/foto4.jpg" alt="Nosotros 4" class="hidden-photo" />
+        </div>
+
+        <!-- Foto 5 - Memoria -->
+        <div class="photo-challenge" data-photo="5">
+          <div class="locked-overlay">
+            <div class="lock-icon">🔒</div>
+            <div class="challenge-text">Nivel 5</div>
+            <button class="unlock-btn">Desbloquear</button>
+          </div>
+          <img src="img/foto5.jpg" alt="Nosotros 5" class="hidden-photo" />
+        </div>
+
+        <!-- Foto 6 - Regalo Final -->
+        <div class="photo-challenge" data-photo="6">
+          <div class="locked-overlay special-lock">
+            <div class="lock-icon">👑</div>
+            <div class="challenge-text">Nivel Final</div>
+            <button class="unlock-btn">Desbloquear</button>
+          </div>
+          <img src="img/foto6.jpg" alt="Nosotros 6" class="hidden-photo" />
+        </div>
+      </div>
+    </section>
+
+    <!-- MODAL PARA DESAFÍOS -->
+    <div id="challengeModal" class="challenge-modal hidden">
+      <div class="modal-content">
+        <div class="modal-border-decoration">
+          <div class="corner-decoration top-left">💕</div>
+          <div class="corner-decoration top-right">💕</div>
+          <div class="corner-decoration bottom-left">💕</div>
+          <div class="corner-decoration bottom-right">💕</div>
+        </div>
+        
+        <button class="modal-close" id="modalClose">✕</button>
+        
+        <div class="modal-header">
+          <h3 class="minecraft-subtitle" id="challengeTitle">Desafío</h3>
+          <p class="challenge-description" id="challengeDescription"></p>
+        </div>
+        
+        <div class="modal-body" id="challengeContent">
+          <!-- Contenido dinámico del desafío -->
+        </div>
+        
+        <div class="modal-footer">
+          <button class="btn-submit" id="submitAnswer">Confirmar Respuesta 💖</button>
+          <p class="challenge-hint hidden" id="challengeHint"></p>
+        </div>
+      </div>
+    </div>
+
+    <!-- MODAL PARA VER FOTO DESBLOQUEADA -->
+    <div id="photoModal" class="photo-modal hidden">
+      <div class="photo-modal-content">
+        <div class="photo-border-decoration">
+          <div class="photo-corner tl">🌹</div>
+          <div class="photo-corner tr">🌹</div>
+          <div class="photo-corner bl">🌹</div>
+          <div class="photo-corner br">🌹</div>
+          <div class="photo-frame-top"></div>
+          <div class="photo-frame-right"></div>
+          <div class="photo-frame-bottom"></div>
+          <div class="photo-frame-left"></div>
+        </div>
+        
+        <button class="photo-modal-close" id="photoModalClose">✕</button>
+        
+        <div class="photo-display">
+          <img id="modalPhotoImg" src="" alt="Nuestro recuerdo" />
+          <div class="photo-caption" id="photoCaption">Recuerdo desbloqueado 💝</div>
+        </div>
+        
+        <div class="photo-actions">
+          <button class="btn-photo-action" id="prevPhoto">← Anterior</button>
+          <button class="btn-photo-action" id="nextPhoto">Siguiente →</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- SECCIÓN 2: RAZONES POR LAS QUE TE AMO -->
+    <section class="card reasons-card">
+      <div class="card-header">
+        <h2 class="minecraft-subtitle">Razones para amarte 💝</h2>
+        <p class="card-desc">Haz clic en cada corazón para descubrir por qué eres especial</p>
+      </div>
+      <div class="reasons-grid">
+        <div class="reason-item" data-reason="Tu sonrisa ilumina mis días más oscuros ✨">
+          <div class="heart-icon">💖</div>
+          <span class="reason-text hidden">Tu sonrisa ilumina mis días más oscuros ✨</span>
+        </div>
+        <div class="reason-item" data-reason="Contigo el tiempo se detiene ⏰">
+          <div class="heart-icon">💗</div>
+          <span class="reason-text hidden">Contigo el tiempo se detiene ⏰</span>
+        </div>
+        <div class="reason-item" data-reason="Eres mi persona favorita en todo el mundo 🌍">
+          <div class="heart-icon">💓</div>
+          <span class="reason-text hidden">Eres mi persona favorita en todo el mundo 🌍</span>
+        </div>
+        <div class="reason-item" data-reason="Me haces sentir completo/a 🧩">
+          <div class="heart-icon">💕</div>
+          <span class="reason-text hidden">Me haces sentir completo/a 🧩</span>
+        </div>
+        <div class="reason-item" data-reason="Cada día contigo es una aventura 🎢">
+          <div class="heart-icon">💞</div>
+          <span class="reason-text hidden">Cada día contigo es una aventura 🎢</span>
+        </div>
+        <div class="reason-item" data-reason="Eres mi mejor amigo/a y mi amor 👫">
+          <div class="heart-icon">💘</div>
+          <span class="reason-text hidden">Eres mi mejor amigo/a y mi amor 👫</span>
+        </div>
+      </div>
+    </section>
+
+    <!-- SECCIÓN 3: LA GRAN PREGUNTA -->
+    <section class="card ask-card">
+      <div class="ask">
+        <h2 class="minecraft-subtitle big-question">¿Quieres ser mi San Valentín? 💌</h2>
+        <p class="hint">Piénsalo bien… hay una opción que se pone tímida 😅</p>
+
+        <div class="buttons">
+          <button id="btnSi" class="btn btn-primary">
+            <span class="btn-text">Sí, mi amor 💖</span>
+          </button>
+
+          <button id="btnNo" class="btn btn-ghost" type="button">
+            <span class="btn-text">No 🙈</span>
+          </button>
+        </div>
+      </div>
+    </section>
+
+    <!-- RESULTADO -->
+    <section id="result" class="result hidden" aria-live="polite">
+      <div class="result-card">
+        <div class="celebration">🎉 🎊 ✨ 💖 ✨ 🎊 🎉</div>
+        <h3 class="minecraft-subtitle">¡Siiii! 🥰</h3>
+        <p class="result-main">
+          ¡Sabía que dirías que sí! 💕<br />
+          Mañana es nuestro día especial ✨
+        </p>
+        <div class="love-message">
+          <p>Te amo más de lo que las palabras pueden expresar ❤️</p>
+          <p>Eres mi persona favorita en todo el universo 🌌</p>
+          <p>Gracias por hacer mi vida más hermosa cada día 🌹</p>
+        </div>
+        <p class="small-hint">
+          📸 Toma captura y mándamela para guardar este momento para siempre 😄
+        </p>
+        <button id="downloadBtn" class="btn-download">Descargar Certificado 💝</button>
+      </div>
+    </section>
+
+    <!-- SECCIÓN 5: PLAYLIST DEL AMOR -->
+    <section class="card playlist-card">
+      <div class="card-header">
+        <h2 class="minecraft-subtitle">Nuestra Playlist 🎵</h2>
+        <p class="card-desc">Las canciones que me recuerdan a ti</p>
+      </div>
+      <div class="spotify-container">
+        <iframe data-testid="embed-iframe" style="border-radius:12px" src="https://open.spotify.com/embed/playlist/12WoIoqoKOgfTbouEHmVcx?utm_source=generator" width="100%" height="352" frameBorder="0" allowfullscreen="" allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture" loading="lazy"></iframe>
+      </div>
+    </section>
+
+    <!-- FOOTER -->
+    <footer class="footer">
+      <div class="footer-hearts">💕 💖 💗 💓 💞</div>
+      <p class="minecraft-text">Hecho con mucho amor para ti</p>
+      <p class="footer-date">San Valentín 2026 💘</p>
+    </footer>
+  </main>
+
+  <script src="script.js"></script>
+</body>
+</html>

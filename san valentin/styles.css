@@ -1,0 +1,1750 @@
+/* =========================
+   FUENTES
+========================= */
+@import url('https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap');
+
+/* =========================
+   PANTALLA DE CARGA MINECRAFT
+========================= */
+.loading-screen {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(135deg, #1a0a1e, #3d1a3d, #5c2751);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 9999;
+  transition: opacity 0.5s ease;
+}
+
+.loading-screen.fade-out {
+  opacity: 0;
+  pointer-events: none;
+}
+
+.loading-content {
+  text-align: center;
+  max-width: 600px;
+  padding: 40px;
+}
+
+.minecraft-logo {
+  font-family: 'Press Start 2P', cursive;
+  font-size: clamp(24px, 5vw, 48px);
+  color: #ffffff;
+  text-shadow: 
+    4px 4px 0px #ff4b7d,
+    8px 8px 0px rgba(0, 0, 0, 0.3);
+  margin-bottom: 60px;
+  line-height: 1.6;
+  animation: minecraftPulse 2s ease-in-out infinite;
+}
+
+@keyframes minecraftPulse {
+  0%, 100% { transform: scale(1); }
+  50% { transform: scale(1.05); }
+}
+
+.loading-bar-container {
+  width: 100%;
+  height: 40px;
+  background: #1a0a1e;
+  border: 4px solid #ff4b7d;
+  border-radius: 0;
+  margin: 30px 0;
+  box-shadow: 
+    inset 0 0 20px rgba(0, 0, 0, 0.5),
+    0 4px 0 rgba(0, 0, 0, 0.3);
+  position: relative;
+  overflow: hidden;
+}
+
+.loading-bar {
+  height: 100%;
+  width: 0%;
+  background: linear-gradient(90deg, 
+    #ff4b7d 0%, 
+    #ff7aa7 25%, 
+    #ff95bb 50%, 
+    #ff7aa7 75%, 
+    #ff4b7d 100%
+  );
+  background-size: 200% 100%;
+  animation: loadingShine 2s linear infinite;
+  transition: width 0.3s ease;
+  box-shadow: 
+    0 0 20px rgba(255, 75, 125, 0.8),
+    inset 0 0 10px rgba(255, 255, 255, 0.3);
+}
+
+@keyframes loadingShine {
+  0% { background-position: 200% 0; }
+  100% { background-position: -200% 0; }
+}
+
+.loading-text {
+  font-family: 'Press Start 2P', cursive;
+  font-size: clamp(12px, 2.5vw, 18px);
+  color: #f8d7e6;
+  margin: 20px 0;
+  text-shadow: 2px 2px 0px rgba(0, 0, 0, 0.3);
+  line-height: 1.8;
+}
+
+.loading-percentage {
+  font-family: 'Press Start 2P', cursive;
+  font-size: clamp(16px, 3vw, 24px);
+  color: #ff7aa7;
+  margin-top: 15px;
+  text-shadow: 2px 2px 0px rgba(0, 0, 0, 0.3);
+}
+
+/* =========================
+   VIDEO DE FONDO
+========================= */
+.video-background {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+  z-index: -2;
+}
+
+.video-background video {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  min-width: 100%;
+  min-height: 100%;
+  width: auto;
+  height: auto;
+  transform: translate(-50%, -50%);
+  object-fit: cover;
+}
+
+
+.video-overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  /* Overlay oscuro con degradado para legibilidad */
+  background: linear-gradient(
+    135deg,
+    rgba(26, 10, 30, 0.85) 0%,
+    rgba(61, 26, 61, 0.80) 50%,
+    rgba(92, 39, 81, 0.85) 100%
+  );
+  /* Efecto de viñeta para mejor contraste */
+  box-shadow: inset 0 0 200px rgba(0, 0, 0, 0.6);
+  z-index: -1;
+}
+
+/* Si no hay video, mostrar degradado de respaldo */
+.video-background::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(135deg, #1a0a1e, #3d1a3d, #5c2751);
+  z-index: -3;
+}
+
+/* =========================
+   VARIABLES
+========================= */
+:root {
+  /* Colores San Valentín */
+  --bg1: #1a0a1e;
+  --bg2: #3d1a3d;
+  --bg3: #5c2751;
+
+  --card: #ffffff12;
+  --card-hover: #ffffff18;
+  --stroke: #ff4b7d30;
+
+  --text: #ffffff;
+  --muted: #f8d7e6;
+
+  --primary: #ff4b7d;
+  --primary2: #ff7aa7;
+  --primary3: #ff95bb;
+
+  --accent: #ff1744;
+  --accent2: #ff6090;
+
+  --shadow: 0 20px 60px rgba(255, 27, 68, 0.3);
+  --glow: 0 0 30px rgba(255, 75, 125, 0.4);
+}
+
+/* =========================
+   RESET
+========================= */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+html, body {
+  height: 100%;
+  font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
+  color: var(--text);
+  overflow-x: hidden;
+}
+
+/* =========================
+   FONDO
+========================= */
+body {
+  background: transparent;
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+  padding: 40px 20px;
+  position: relative;
+}
+
+/* Removemos la animación de gradiente ya que tenemos video */
+
+/* Corazones flotantes de fondo */
+.bg-hearts {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+  z-index: 0;
+  overflow: hidden;
+}
+
+.bg-hearts::before,
+.bg-hearts::after {
+  content: '💕';
+  position: absolute;
+  font-size: 30px;
+  opacity: 0.1;
+  animation: floatHeart 20s infinite;
+}
+
+.bg-hearts::before {
+  left: 10%;
+  top: -50px;
+  animation-delay: 0s;
+}
+
+.bg-hearts::after {
+  left: 80%;
+  top: -50px;
+  animation-delay: 7s;
+}
+
+@keyframes floatHeart {
+  0% {
+    transform: translateY(0) rotate(0deg);
+    opacity: 0;
+  }
+  10% {
+    opacity: 0.15;
+  }
+  90% {
+    opacity: 0.15;
+  }
+  100% {
+    transform: translateY(100vh) rotate(360deg);
+    opacity: 0;
+  }
+}
+
+/* =========================
+   CONTENEDOR
+========================= */
+.container {
+  width: 100%;
+  max-width: 1000px;
+  animation: fadeIn 1.2s ease;
+  position: relative;
+  z-index: 1;
+}
+
+/* =========================
+   TIPOGRAFÍA MINECRAFT
+========================= */
+.minecraft-title {
+  font-family: 'Press Start 2P', cursive;
+  font-size: clamp(20px, 4vw, 32px);
+  line-height: 1.6;
+  text-shadow: 
+    4px 4px 0px rgba(0, 0, 0, 0.8),
+    2px 2px 10px rgba(0, 0, 0, 0.9),
+    0 0 20px rgba(255, 75, 125, 0.5);
+  letter-spacing: 2px;
+}
+
+.minecraft-subtitle {
+  font-family: 'Press Start 2P', cursive;
+  font-size: clamp(14px, 3vw, 20px);
+  line-height: 1.8;
+  text-shadow: 
+    3px 3px 0px rgba(0, 0, 0, 0.8),
+    2px 2px 8px rgba(0, 0, 0, 0.9),
+    0 0 15px rgba(255, 75, 125, 0.4);
+  letter-spacing: 1px;
+}
+
+.minecraft-text {
+  font-family: 'Press Start 2P', cursive;
+  font-size: clamp(8px, 2vw, 12px);
+  line-height: 1.8;
+  letter-spacing: 1px;
+  text-shadow: 
+    2px 2px 0px rgba(0, 0, 0, 0.8),
+    1px 1px 5px rgba(0, 0, 0, 0.9);
+}
+
+/* =========================
+   HERO
+========================= */
+.hero {
+  text-align: center;
+  margin-bottom: 40px;
+  padding: 20px;
+  background: rgba(0, 0, 0, 0.3);
+  backdrop-filter: blur(15px);
+  border-radius: 20px;
+}
+
+.badge {
+  display: inline-block;
+  background: linear-gradient(135deg, var(--primary), var(--accent));
+  padding: 8px 20px;
+  border-radius: 20px;
+  font-size: 14px;
+  font-weight: 600;
+  margin-bottom: 20px;
+  box-shadow: 
+    var(--glow),
+    0 4px 15px rgba(0, 0, 0, 0.5);
+  animation: pulse 2s ease-in-out infinite;
+  text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.5);
+}
+
+@keyframes pulse {
+  0%, 100% { transform: scale(1); }
+  50% { transform: scale(1.05); }
+}
+
+.hero h1 {
+  margin-bottom: 15px;
+  background: linear-gradient(135deg, #fff, var(--primary3));
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  filter: drop-shadow(2px 2px 4px rgba(0, 0, 0, 0.8));
+}
+
+.subtitle {
+  color: var(--muted);
+  font-size: 18px;
+  max-width: 600px;
+  margin: 0 auto;
+  text-shadow: 
+    2px 2px 4px rgba(0, 0, 0, 0.8),
+    1px 1px 10px rgba(0, 0, 0, 0.6);
+}
+
+/* =========================
+   CARDS PRINCIPALES
+========================= */
+.card {
+  background: rgba(255, 255, 255, 0.15);
+  backdrop-filter: blur(25px) saturate(180%);
+  -webkit-backdrop-filter: blur(25px) saturate(180%);
+  border: 2px solid var(--stroke);
+  border-radius: 24px;
+  box-shadow: 
+    var(--shadow),
+    0 0 80px rgba(0, 0, 0, 0.4),
+    inset 0 0 60px rgba(0, 0, 0, 0.1);
+  overflow: hidden;
+  margin-bottom: 30px;
+  transition: all 0.3s ease;
+}
+
+.card:hover {
+  background: rgba(255, 255, 255, 0.20);
+  box-shadow: 
+    0 25px 70px rgba(255, 27, 68, 0.4),
+    0 0 100px rgba(0, 0, 0, 0.5);
+}
+
+.card-header {
+  padding: 30px 30px 20px;
+  text-align: center;
+  border-bottom: 1px solid var(--stroke);
+}
+
+.card-header h2 {
+  margin-bottom: 10px;
+  color: var(--primary2);
+}
+
+.card-desc {
+  color: var(--muted);
+  font-size: 15px;
+}
+
+/* =========================
+   GALERÍA CON SISTEMA DE DESAFÍOS
+========================= */
+.progress-tracker {
+  margin-top: 15px;
+  padding: 12px 20px;
+  background: linear-gradient(135deg, #ff4b7d, #ff7aa7);
+  border-radius: 20px;
+  display: inline-flex;
+  align-items: center;
+  gap: 15px;
+  box-shadow: 0 4px 15px rgba(255, 75, 125, 0.4);
+}
+
+.progress-text {
+  font-family: 'Press Start 2P', cursive;
+  font-size: 12px;
+  color: #fff;
+  text-shadow: 2px 2px 0px rgba(0, 0, 0, 0.3);
+}
+
+.reset-progress-btn {
+  background: rgba(255, 255, 255, 0.2);
+  border: 2px solid rgba(255, 255, 255, 0.5);
+  border-radius: 50%;
+  width: 36px;
+  height: 36px;
+  font-size: 18px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  backdrop-filter: blur(10px);
+}
+
+.reset-progress-btn:hover {
+  background: rgba(255, 255, 255, 0.3);
+  transform: rotate(180deg);
+  border-color: rgba(255, 255, 255, 0.8);
+}
+
+.gallery-game {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 15px;
+  padding: 25px;
+}
+
+.photo-challenge {
+  position: relative;
+  width: 100%;
+  height: 240px;
+  border-radius: 16px;
+  overflow: hidden;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  border: 2px solid var(--stroke);
+}
+
+.photo-challenge:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 15px 40px rgba(255, 75, 125, 0.4);
+}
+
+.hidden-photo {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  filter: blur(20px) brightness(0.3);
+  transition: all 0.5s ease;
+}
+
+.photo-challenge.unlocked .hidden-photo {
+  filter: blur(0) brightness(1);
+}
+
+.locked-overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(135deg, rgba(255, 75, 125, 0.95), rgba(61, 26, 61, 0.95));
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 15px;
+  transition: all 0.5s ease;
+  z-index: 5;
+}
+
+.photo-challenge.unlocked .locked-overlay {
+  opacity: 0;
+  pointer-events: none;
+}
+
+.special-lock {
+  background: linear-gradient(135deg, rgba(255, 27, 68, 0.95), rgba(138, 43, 226, 0.95));
+  animation: specialGlow 2s ease-in-out infinite;
+}
+
+@keyframes specialGlow {
+  0%, 100% { box-shadow: inset 0 0 30px rgba(255, 215, 0, 0.3); }
+  50% { box-shadow: inset 0 0 50px rgba(255, 215, 0, 0.6); }
+}
+
+.lock-icon {
+  font-size: 48px;
+  animation: lockShake 2s ease-in-out infinite;
+}
+
+@keyframes lockShake {
+  0%, 100% { transform: rotate(0deg); }
+  25% { transform: rotate(-10deg); }
+  75% { transform: rotate(10deg); }
+}
+
+.challenge-text {
+  font-family: 'Press Start 2P', cursive;
+  font-size: 14px;
+  color: #fff;
+  text-shadow: 2px 2px 0px rgba(0, 0, 0, 0.5);
+  text-align: center;
+}
+
+.unlock-btn {
+  padding: 12px 24px;
+  background: linear-gradient(135deg, #ffd700, #ffed4e);
+  border: 3px solid #fff;
+  border-radius: 12px;
+  color: #1a0a1e;
+  font-family: 'Press Start 2P', cursive;
+  font-size: 10px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  box-shadow: 0 8px 20px rgba(255, 215, 0, 0.4);
+  text-transform: uppercase;
+}
+
+.unlock-btn:hover {
+  transform: scale(1.1);
+  box-shadow: 0 12px 30px rgba(255, 215, 0, 0.6);
+}
+
+.unlock-btn:active {
+  transform: scale(0.95);
+}
+
+/* =========================
+   MODAL DE DESAFÍOS
+========================= */
+.challenge-modal {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.85);
+  backdrop-filter: blur(10px);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 1000;
+  animation: fadeIn 0.3s ease;
+}
+
+.challenge-modal.hidden {
+  display: none;
+}
+
+.modal-content {
+  position: relative;
+  width: 90%;
+  max-width: 600px;
+  background: linear-gradient(135deg, #fff5f7, #ffe8ed);
+  border-radius: 24px;
+  padding: 40px;
+  box-shadow: 0 30px 80px rgba(255, 27, 68, 0.5);
+  animation: modalSlideIn 0.4s ease;
+}
+
+@keyframes modalSlideIn {
+  from {
+    opacity: 0;
+    transform: translateY(-50px) scale(0.9);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+
+.modal-border-decoration {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+}
+
+.corner-decoration {
+  position: absolute;
+  font-size: 40px;
+  animation: heartFloat 3s ease-in-out infinite;
+}
+
+.corner-decoration.top-left {
+  top: -10px;
+  left: -10px;
+  animation-delay: 0s;
+}
+
+.corner-decoration.top-right {
+  top: -10px;
+  right: -10px;
+  animation-delay: 0.5s;
+}
+
+.corner-decoration.bottom-left {
+  bottom: -10px;
+  left: -10px;
+  animation-delay: 1s;
+}
+
+.corner-decoration.bottom-right {
+  bottom: -10px;
+  right: -10px;
+  animation-delay: 1.5s;
+}
+
+@keyframes heartFloat {
+  0%, 100% { transform: translateY(0) scale(1); }
+  50% { transform: translateY(-10px) scale(1.1); }
+}
+
+.modal-close {
+  position: absolute;
+  top: 15px;
+  right: 15px;
+  width: 40px;
+  height: 40px;
+  background: #ff4b7d;
+  border: none;
+  border-radius: 50%;
+  color: #fff;
+  font-size: 24px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  z-index: 10;
+  line-height: 1;
+}
+
+.modal-close:hover {
+  background: #ff1744;
+  transform: rotate(90deg);
+}
+
+.modal-header {
+  text-align: center;
+  margin-bottom: 30px;
+  border-bottom: 3px solid #ff7aa7;
+  padding-bottom: 20px;
+}
+
+.modal-header h3 {
+  color: #ff1744;
+  margin-bottom: 10px;
+  font-size: 20px;
+}
+
+.challenge-description {
+  color: #1a0a1e;
+  font-size: 16px;
+  line-height: 1.6;
+}
+
+.modal-body {
+  min-height: 150px;
+  margin-bottom: 25px;
+}
+
+.challenge-input {
+  width: 100%;
+  padding: 15px 20px;
+  border: 3px solid #ff7aa7;
+  border-radius: 12px;
+  font-size: 18px;
+  font-family: 'Press Start 2P', cursive;
+  background: #fff;
+  color: #1a0a1e;
+  text-align: center;
+  outline: none;
+  transition: all 0.3s ease;
+}
+
+.challenge-input:focus {
+  border-color: #ff4b7d;
+  box-shadow: 0 0 20px rgba(255, 75, 125, 0.3);
+}
+
+.challenge-options {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 15px;
+}
+
+.option-btn {
+  padding: 15px;
+  background: #fff;
+  border: 3px solid #ff7aa7;
+  border-radius: 12px;
+  font-size: 14px;
+  color: #1a0a1e;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  font-family: 'Segoe UI', sans-serif;
+}
+
+.option-btn:hover {
+  background: #ffe8ed;
+  border-color: #ff4b7d;
+  transform: scale(1.05);
+}
+
+.option-btn.selected {
+  background: linear-gradient(135deg, #ff4b7d, #ff7aa7);
+  border-color: #ff1744;
+  color: #fff;
+}
+
+.btn-submit {
+  width: 100%;
+  padding: 18px;
+  background: linear-gradient(135deg, #ff4b7d, #ff1744);
+  border: none;
+  border-radius: 12px;
+  color: #fff;
+  font-family: 'Press Start 2P', cursive;
+  font-size: 12px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  box-shadow: 0 10px 30px rgba(255, 27, 68, 0.4);
+  text-transform: uppercase;
+}
+
+.btn-submit:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 15px 40px rgba(255, 27, 68, 0.6);
+}
+
+.btn-submit:active {
+  transform: translateY(-1px);
+}
+
+.challenge-hint {
+  margin-top: 15px;
+  padding: 12px;
+  background: #fff5f7;
+  border-left: 4px solid #ff7aa7;
+  border-radius: 8px;
+  color: #666;
+  font-size: 13px;
+  font-style: italic;
+}
+
+/* =========================
+   MINI-JUEGO DE CLICKS
+========================= */
+.click-game-container {
+  text-align: center;
+}
+
+.click-game-info {
+  margin-bottom: 25px;
+}
+
+.game-instruction {
+  font-family: 'Press Start 2P', cursive;
+  font-size: 13px;
+  color: #ff1744;
+  margin-bottom: 20px;
+  line-height: 1.8;
+  text-shadow: 2px 2px 0px rgba(0, 0, 0, 0.1);
+}
+
+.game-stats {
+  display: flex;
+  justify-content: space-around;
+  margin-bottom: 20px;
+}
+
+.stat-item {
+  background: #fff;
+  border: 2px solid #ff7aa7;
+  border-radius: 12px;
+  padding: 12px 20px;
+}
+
+.stat-label {
+  font-size: 12px;
+  color: #666;
+  display: block;
+  margin-bottom: 5px;
+}
+
+.stat-value {
+  font-family: 'Press Start 2P', cursive;
+  font-size: 24px;
+  color: #ff1744;
+  font-weight: bold;
+}
+
+.progress-bar-container {
+  width: 100%;
+  height: 30px;
+  background: #fff;
+  border: 3px solid #ff7aa7;
+  border-radius: 15px;
+  overflow: hidden;
+  position: relative;
+  box-shadow: inset 0 2px 8px rgba(0, 0, 0, 0.1);
+}
+
+.progress-bar {
+  height: 100%;
+  width: 0%;
+  background: linear-gradient(90deg, #ff4b7d, #ff7aa7);
+  transition: width 0.3s ease, background 0.3s ease;
+  box-shadow: 0 0 20px rgba(255, 75, 125, 0.6);
+  position: relative;
+}
+
+.progress-bar::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: linear-gradient(
+    90deg,
+    transparent,
+    rgba(255, 255, 255, 0.3),
+    transparent
+  );
+  animation: shimmer 2s infinite;
+}
+
+@keyframes shimmer {
+  0% { transform: translateX(-100%); }
+  100% { transform: translateX(100%); }
+}
+
+.click-game-button {
+  width: 200px;
+  height: 200px;
+  border-radius: 50%;
+  background: linear-gradient(135deg, #ff4b7d, #ff1744);
+  border: 6px solid #fff;
+  box-shadow: 
+    0 15px 40px rgba(255, 27, 68, 0.5),
+    inset 0 -5px 20px rgba(0, 0, 0, 0.2);
+  cursor: pointer;
+  transition: all 0.1s ease;
+  position: relative;
+  margin: 20px auto;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+}
+
+.click-game-button:hover:not(:disabled) {
+  transform: scale(1.05);
+  box-shadow: 
+    0 20px 50px rgba(255, 27, 68, 0.7),
+    inset 0 -5px 20px rgba(0, 0, 0, 0.2);
+}
+
+.click-game-button:active:not(:disabled) {
+  transform: scale(0.95);
+}
+
+.click-game-button:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+.btn-emoji {
+  font-size: 64px;
+  animation: heartPulse 1.5s ease-in-out infinite;
+}
+
+@keyframes heartPulse {
+  0%, 100% { transform: scale(1); }
+  50% { transform: scale(1.2); }
+}
+
+.click-game-button .btn-text {
+  font-family: 'Press Start 2P', cursive;
+  font-size: 12px;
+  color: #fff;
+  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+}
+
+.game-start-btn {
+  width: 100%;
+  padding: 18px;
+  background: linear-gradient(135deg, #ffd700, #ffed4e);
+  border: 3px solid #fff;
+  border-radius: 12px;
+  color: #1a0a1e;
+  font-family: 'Press Start 2P', cursive;
+  font-size: 12px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  box-shadow: 0 10px 30px rgba(255, 215, 0, 0.5);
+  text-transform: uppercase;
+  margin-top: 20px;
+}
+
+.game-start-btn:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 15px 40px rgba(255, 215, 0, 0.7);
+}
+
+.game-start-btn:active {
+  transform: translateY(-1px);
+}
+
+/* =========================
+   MODAL DE FOTO DESBLOQUEADA
+========================= */
+.photo-modal {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.95);
+  backdrop-filter: blur(15px);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 2000;
+  animation: fadeIn 0.3s ease;
+}
+
+.photo-modal.hidden {
+  display: none;
+}
+
+.photo-modal-content {
+  position: relative;
+  width: 90%;
+  max-width: 800px;
+  background: linear-gradient(135deg, #2d1b2e, #1a0a1e);
+  border-radius: 30px;
+  padding: 50px;
+  box-shadow: 0 40px 100px rgba(255, 27, 68, 0.6);
+  animation: photoModalAppear 0.5s ease;
+}
+
+@keyframes photoModalAppear {
+  from {
+    opacity: 0;
+    transform: scale(0.8) rotateY(20deg);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1) rotateY(0deg);
+  }
+}
+
+.photo-border-decoration {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+}
+
+.photo-corner {
+  position: absolute;
+  font-size: 48px;
+  filter: drop-shadow(0 0 10px rgba(255, 75, 125, 0.8));
+  animation: roseSpin 4s linear infinite;
+}
+
+@keyframes roseSpin {
+  0%, 100% { transform: rotate(0deg); }
+  50% { transform: rotate(360deg); }
+}
+
+.photo-corner.tl { top: 10px; left: 10px; }
+.photo-corner.tr { top: 10px; right: 10px; }
+.photo-corner.bl { bottom: 10px; left: 10px; }
+.photo-corner.br { bottom: 10px; right: 10px; }
+
+.photo-frame-top, .photo-frame-bottom {
+  position: absolute;
+  left: 80px;
+  right: 80px;
+  height: 3px;
+  background: linear-gradient(90deg, transparent, #ff4b7d, #ff7aa7, #ff4b7d, transparent);
+}
+
+.photo-frame-top { top: 30px; }
+.photo-frame-bottom { bottom: 30px; }
+
+.photo-frame-left, .photo-frame-right {
+  position: absolute;
+  top: 80px;
+  bottom: 80px;
+  width: 3px;
+  background: linear-gradient(180deg, transparent, #ff4b7d, #ff7aa7, #ff4b7d, transparent);
+}
+
+.photo-frame-left { left: 30px; }
+.photo-frame-right { right: 30px; }
+
+.photo-modal-close {
+  position: absolute;
+  top: 20px;
+  right: 20px;
+  width: 50px;
+  height: 50px;
+  background: linear-gradient(135deg, #ff4b7d, #ff1744);
+  border: 3px solid #fff;
+  border-radius: 50%;
+  color: #fff;
+  font-size: 28px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  z-index: 10;
+  line-height: 1;
+  box-shadow: 0 8px 20px rgba(255, 27, 68, 0.5);
+}
+
+.photo-modal-close:hover {
+  transform: rotate(90deg) scale(1.1);
+  box-shadow: 0 12px 30px rgba(255, 27, 68, 0.7);
+}
+
+.photo-display {
+  text-align: center;
+}
+
+.photo-display img {
+  max-width: 100%;
+  max-height: 60vh;
+  border-radius: 20px;
+  border: 5px solid #fff;
+  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.7);
+  animation: photoReveal 0.6s ease;
+}
+
+@keyframes photoReveal {
+  from {
+    opacity: 0;
+    filter: blur(20px);
+    transform: scale(0.8);
+  }
+  to {
+    opacity: 1;
+    filter: blur(0);
+    transform: scale(1);
+  }
+}
+
+.photo-caption {
+  margin-top: 25px;
+  font-family: 'Press Start 2P', cursive;
+  font-size: 14px;
+  color: #ff7aa7;
+  text-shadow: 2px 2px 0px rgba(0, 0, 0, 0.5);
+}
+
+.photo-actions {
+  display: flex;
+  gap: 15px;
+  margin-top: 30px;
+  justify-content: center;
+}
+
+.btn-photo-action {
+  padding: 12px 24px;
+  background: rgba(255, 255, 255, 0.1);
+  border: 2px solid #ff7aa7;
+  border-radius: 12px;
+  color: #fff;
+  font-family: 'Press Start 2P', cursive;
+  font-size: 10px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  backdrop-filter: blur(10px);
+}
+
+.btn-photo-action:hover {
+  background: rgba(255, 75, 125, 0.3);
+  border-color: #ff4b7d;
+  transform: translateY(-2px);
+}
+
+.btn-photo-action:disabled {
+  opacity: 0.3;
+  cursor: not-allowed;
+}
+
+/* =========================
+   GALERÍA (ESTILOS ANTIGUOS REMOVIDOS)
+========================= */
+
+/* =========================
+   RAZONES POR LAS QUE TE AMO
+========================= */
+.reasons-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 20px;
+  padding: 30px;
+}
+
+.reason-item {
+  background: #ffffff08;
+  border: 1px solid var(--stroke);
+  border-radius: 16px;
+  padding: 25px;
+  text-align: center;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  position: relative;
+  overflow: hidden;
+}
+
+.reason-item:hover {
+  background: #ffffff15;
+  transform: translateY(-5px);
+  box-shadow: 0 10px 30px rgba(255, 75, 125, 0.3);
+}
+
+.heart-icon {
+  font-size: 48px;
+  margin-bottom: 15px;
+  animation: heartBeat 1.5s ease-in-out infinite;
+  display: inline-block;
+}
+
+@keyframes heartBeat {
+  0%, 100% { transform: scale(1); }
+  10%, 30% { transform: scale(1.1); }
+  20%, 40% { transform: scale(1); }
+}
+
+.reason-text {
+  display: block;
+  color: var(--muted);
+  font-size: 14px;
+  line-height: 1.6;
+  margin-top: 10px;
+  opacity: 0;
+  transition: opacity 0.3s ease;
+}
+
+.reason-text.visible {
+  opacity: 1;
+}
+
+.reason-text.hidden {
+  display: none;
+}
+
+.reason-item.revealed .reason-text {
+  display: block;
+  animation: fadeInUp 0.5s ease;
+}
+
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* =========================
+   CONTADOR DE AMOR
+========================= */
+.love-counter {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 20px;
+  padding: 30px;
+}
+
+.counter-item {
+  text-align: center;
+  background: #ffffff08;
+  border: 1px solid var(--stroke);
+  border-radius: 16px;
+  padding: 20px;
+  transition: all 0.3s ease;
+}
+
+.counter-item:hover {
+  background: #ffffff12;
+  transform: scale(1.05);
+}
+
+.counter-value {
+  font-size: 36px;
+  font-weight: 700;
+  color: var(--primary2);
+  text-shadow: 0 0 20px rgba(255, 75, 125, 0.5);
+  font-family: 'Press Start 2P', cursive;
+  margin-bottom: 10px;
+}
+
+.counter-label {
+  color: var(--muted);
+  font-size: 14px;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+}
+
+.counter-config {
+  padding: 20px 30px 30px;
+  text-align: center;
+}
+
+.hint-small {
+  color: var(--muted);
+  font-size: 13px;
+  margin-bottom: 10px;
+}
+
+.date-input {
+  background: #ffffff15;
+  border: 1px solid var(--stroke);
+  border-radius: 10px;
+  padding: 10px 15px;
+  color: var(--text);
+  font-size: 14px;
+  margin: 10px 10px 10px 0;
+  outline: none;
+  transition: all 0.3s ease;
+}
+
+.date-input:focus {
+  border-color: var(--primary);
+  box-shadow: 0 0 15px rgba(255, 75, 125, 0.3);
+}
+
+.btn-small {
+  background: linear-gradient(135deg, var(--primary), var(--primary2));
+  border: none;
+  border-radius: 10px;
+  padding: 10px 20px;
+  color: #fff;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  font-size: 14px;
+}
+
+.btn-small:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 10px 25px rgba(255, 75, 125, 0.4);
+}
+
+/* =========================
+   MENSAJE SECRETO
+========================= */
+.secret-message {
+  padding: 30px;
+  text-align: center;
+}
+
+.coded-text {
+  font-size: 32px;
+  letter-spacing: 10px;
+  margin: 20px 0;
+  padding: 20px;
+  background: #ffffff08;
+  border-radius: 12px;
+  border: 1px solid var(--stroke);
+}
+
+.btn-decode {
+  background: linear-gradient(135deg, var(--accent), var(--primary));
+  border: none;
+  border-radius: 12px;
+  padding: 14px 28px;
+  color: #fff;
+  font-weight: 600;
+  font-size: 16px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  box-shadow: 0 10px 30px rgba(255, 27, 68, 0.3);
+  margin: 20px 0;
+}
+
+.btn-decode:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 15px 40px rgba(255, 27, 68, 0.5);
+}
+
+.decoded-text {
+  font-size: 18px;
+  color: var(--primary2);
+  font-style: italic;
+  padding: 25px;
+  background: #ffffff15;
+  border-radius: 12px;
+  border: 2px solid var(--primary);
+  margin-top: 20px;
+  animation: glow 2s ease-in-out infinite;
+}
+
+@keyframes glow {
+  0%, 100% { box-shadow: 0 0 20px rgba(255, 75, 125, 0.3); }
+  50% { box-shadow: 0 0 30px rgba(255, 75, 125, 0.6); }
+}
+
+/* =========================
+   SECCIÓN PREGUNTA
+========================= */
+.ask {
+  padding: 30px 20px;
+  text-align: center;
+}
+
+.ask h2 {
+  margin-bottom: 15px;
+}
+
+.big-question {
+  color: var(--primary2);
+  font-size: clamp(16px, 3.5vw, 24px);
+}
+
+.hint {
+  color: var(--muted);
+  margin-bottom: 30px;
+  font-size: 15px;
+}
+
+/* =========================
+   BOTONES INTERACTIVOS
+========================= */
+.buttons {
+  position: relative;
+  height: 180px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin: 20px 0;
+}
+
+/* BOTÓN SÍ */
+#btnSi {
+  padding: 18px 40px;
+  font-size: 20px;
+  border: none;
+  border-radius: 16px;
+  cursor: pointer;
+  background: linear-gradient(135deg, var(--primary), var(--primary2));
+  color: #fff;
+  font-weight: 700;
+  box-shadow: 0 15px 40px rgba(255, 75, 125, 0.4);
+  transition: all 0.3s ease;
+  z-index: 10;
+  position: relative;
+}
+
+#btnSi:hover {
+  transform: translateY(-5px) scale(1.05);
+  box-shadow: 0 20px 50px rgba(255, 75, 125, 0.6);
+}
+
+#btnSi:active {
+  transform: translateY(-2px) scale(1.02);
+}
+
+.btn-text {
+  display: inline-block;
+}
+
+/* BOTÓN NO */
+#btnNo {
+  position: absolute;
+  padding: 18px 40px;
+  font-size: 20px;
+  border-radius: 16px;
+  cursor: pointer;
+  background: #ffffff10;
+  color: white;
+  border: 1px solid var(--stroke);
+  transition: left 0.2s ease, top 0.2s ease, transform 0.2s ease;
+  z-index: 9;
+  font-weight: 600;
+}
+
+#btnNo:hover {
+  background: #ffffff15;
+  transform: scale(0.95);
+}
+
+/* =========================
+   RESULTADO
+========================= */
+.result {
+  margin-top: 30px;
+  text-align: center;
+}
+
+.result.hidden {
+  display: none;
+}
+
+.result-card {
+  background: linear-gradient(135deg, #ffffff18, #ffffff10);
+  padding: 40px;
+  border-radius: 24px;
+  border: 2px solid var(--primary);
+  box-shadow: 0 30px 80px rgba(255, 27, 68, 0.5);
+  animation: pop 0.6s ease;
+  position: relative;
+  overflow: hidden;
+}
+
+.result-card::before {
+  content: '';
+  position: absolute;
+  top: -50%;
+  left: -50%;
+  width: 200%;
+  height: 200%;
+  background: linear-gradient(
+    45deg,
+    transparent,
+    rgba(255, 75, 125, 0.1),
+    transparent
+  );
+  animation: shine 3s infinite;
+}
+
+@keyframes shine {
+  0% { transform: translateX(-100%) translateY(-100%) rotate(45deg); }
+  100% { transform: translateX(100%) translateY(100%) rotate(45deg); }
+}
+
+.celebration {
+  font-size: 32px;
+  margin-bottom: 20px;
+  animation: bounce 1s ease infinite;
+}
+
+@keyframes bounce {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-10px); }
+}
+
+.result-card h3 {
+  font-size: clamp(20px, 4vw, 32px);
+  margin-bottom: 20px;
+  color: var(--primary2);
+}
+
+.result-main {
+  font-size: 18px;
+  color: var(--muted);
+  margin-bottom: 25px;
+  line-height: 1.8;
+}
+
+.love-message {
+  background: #ffffff08;
+  border-radius: 16px;
+  padding: 25px;
+  margin: 25px 0;
+  border: 1px solid var(--stroke);
+}
+
+.love-message p {
+  color: var(--muted);
+  margin: 10px 0;
+  font-size: 15px;
+  line-height: 1.6;
+}
+
+.small-hint {
+  color: var(--muted);
+  font-size: 13px;
+  margin-top: 20px;
+}
+
+.btn-download {
+  background: linear-gradient(135deg, var(--accent), var(--primary));
+  border: none;
+  border-radius: 12px;
+  padding: 14px 28px;
+  color: #fff;
+  font-weight: 600;
+  font-size: 16px;
+  cursor: pointer;
+  margin-top: 20px;
+  transition: all 0.3s ease;
+  box-shadow: 0 10px 30px rgba(255, 27, 68, 0.3);
+}
+
+.btn-download:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 15px 40px rgba(255, 27, 68, 0.5);
+}
+
+/* =========================
+   PLAYLIST SPOTIFY
+========================= */
+.spotify-container {
+  padding: 30px;
+}
+
+.spotify-container iframe {
+  width: 100%;
+  border-radius: 12px;
+  box-shadow: 0 10px 40px rgba(0, 0, 0, 0.5);
+}
+
+/* =========================
+   FOOTER
+========================= */
+.footer {
+  text-align: center;
+  margin-top: 40px;
+  padding: 30px 20px;
+  border-top: 1px solid var(--stroke);
+}
+
+.footer-hearts {
+  font-size: 24px;
+  margin-bottom: 15px;
+  letter-spacing: 10px;
+}
+
+.footer .minecraft-text {
+  margin-bottom: 10px;
+  color: var(--muted);
+}
+
+.footer-date {
+  color: #ffffff70;
+  font-size: 12px;
+  margin-top: 10px;
+}
+
+/* =========================
+   ANIMACIONES GLOBALES
+========================= */
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(30px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes pop {
+  0% {
+    transform: scale(0.8);
+    opacity: 0;
+  }
+  50% {
+    transform: scale(1.05);
+  }
+  100% {
+    transform: scale(1);
+    opacity: 1;
+  }
+}
+
+.hidden {
+  display: none !important;
+}
+
+/* =========================
+   RESPONSIVE
+========================= */
+@media (max-width: 768px) {
+  .gallery-game {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 12px;
+    padding: 20px;
+  }
+
+  .photo-challenge {
+    height: 200px;
+  }
+
+  .modal-content {
+    padding: 30px 20px;
+    max-width: 95%;
+  }
+
+  .photo-modal-content {
+    padding: 35px 20px;
+    max-width: 95%;
+  }
+
+  .corner-decoration {
+    font-size: 30px;
+  }
+
+  .photo-corner {
+    font-size: 36px;
+  }
+
+  .challenge-text {
+    font-size: 11px;
+  }
+
+  .unlock-btn {
+    font-size: 8px;
+    padding: 10px 18px;
+  }
+
+  .reasons-grid {
+    grid-template-columns: 1fr;
+    padding: 20px;
+  }
+
+  .love-counter {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 15px;
+    padding: 20px;
+  }
+
+  .counter-value {
+    font-size: 28px;
+  }
+
+  .buttons {
+    height: 200px;
+  }
+
+  .result-card {
+    padding: 30px 20px;
+  }
+
+  .minecraft-title {
+    font-size: 18px;
+  }
+
+  .minecraft-subtitle {
+    font-size: 14px;
+  }
+}
+
+@media (max-width: 480px) {
+  .gallery-game {
+    grid-template-columns: 1fr;
+  }
+
+  .photo-challenge {
+    height: 250px;
+  }
+
+  .badge {
+    font-size: 12px;
+    padding: 6px 16px;
+  }
+
+  .subtitle {
+    font-size: 15px;
+  }
+
+  .progress-text {
+    font-size: 10px;
+  }
+
+  .modal-header h3 {
+    font-size: 16px;
+  }
+
+  .challenge-description {
+    font-size: 14px;
+  }
+
+  .challenge-input {
+    font-size: 14px;
+    padding: 12px 15px;
+  }
+
+  .option-btn {
+    font-size: 12px;
+    padding: 12px;
+  }
+
+  .btn-submit {
+    font-size: 10px;
+    padding: 15px;
+  }
+
+  .btn-photo-action {
+    font-size: 8px;
+    padding: 10px 18px;
+  }
+
+  .click-game-button {
+    width: 150px;
+    height: 150px;
+  }
+
+  .btn-emoji {
+    font-size: 48px;
+  }
+
+  .click-game-button .btn-text {
+    font-size: 10px;
+  }
+
+  .game-instruction {
+    font-size: 11px;
+  }
+
+  .stat-value {
+    font-size: 20px;
+  }
+
+  .game-start-btn {
+    font-size: 10px;
+    padding: 15px;
+  }
+}
